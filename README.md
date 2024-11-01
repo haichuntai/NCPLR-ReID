@@ -2,16 +2,15 @@
 
 The is the *official* repository with Pytorch version for [Neighbour Consistency Guided Pseudo-Label Refinement for Unsupervised Person Re-Identification]
 
-This code is released with testing code.
-
 ## Catalogue
 
 - [1. Introduction](#1)
 - [2. Instillation](#2)
 - [3. Preparation](#3)
-- [4. Test](#4)
-- [5. Main Results](#5)
-- [6. References](#6)
+- [4. Train](#4)
+- [5. Test](#5)
+- [6. Main Results](#6)
+- [7. References](#7)
 <!-- - [8. Citation](#8) -->
 
 
@@ -38,7 +37,7 @@ Prepare dataset
     &emsp;&emsp;b. Move them to ```#~/../data/```  
     &emsp;&emsp;c. Insure the data folder like the following structure (otherwise you should modify the data path in ```~/ncplr/datasets/[DATANAME].py```):
 ```
-$ISE/data
+$GL-NCPLR/data
     market1501
       Market-1501-v15.09.15
           bounding_box_train
@@ -52,7 +51,16 @@ $ISE/data
 ```
 
 <a name='4'></a>
-## 4. Test
+## 4. Train
+
+You can simply run `train.sh ` file for the transferring testing process.
+
+```
+# python gl-ncplr_train.py -b 256 -a resnet50_neighbor -d market1501 --momentum 0.1 --eps 0.5 --num-instances 16 --height 320 --use-refinelabels --ce-option 1 --eps-neighbor 0.2 --alpha 0.1 --cmalpha 0.3 --topk-s 0 --topk-spart 0 --use-part --use-mixdistneighbbor --eps-partneighbor 0.2 --lambda1 0.2 --lambda2 0.2 --extra-option 2 --temp-KLlogits 5.0 --temp-KLloss 5.0 --logs logs/market1501/gl-ncplr
+```
+
+<a name='5'></a>
+## 5. Test
 
 You can simply run `test.sh ` file for the transferring testing process.
 
@@ -66,8 +74,8 @@ You can simply run `test.sh ` file for the transferring testing process.
 # python gl-ncplr_test.py -a resnet50_neighbor -d msmt17 --logs logs/msmt17/gl-ncplr --resume checkpoints/msmt17/gl-ncplr
 ```
 
-<a name='5'></a>
-## 5. Main Results
+<a name='6'></a>
+## 6. Main Results
 
 The main results are on Market1501 (M) and MSMT17 (MS). The downloaded model checkpoints are placed in ```#~/checkpoints/[DATANAME]/[METHOD]/model best.pth.tar```, e.g., ```checkpoints/market1501/gl-ncplr/model_best.pth.tar```
 
@@ -80,8 +88,8 @@ The main results are on Market1501 (M) and MSMT17 (MS). The downloaded model che
 | DCMIP + NCPLR | 87.2 (95.0) | - | 42.5 (69.9) | - |
 | DCMIP + Gl-NCPLR  | **87.8 (95.2)** | [DCMIP_NCPLR_M](https://drive.google.com/file/d/10GHJeTBO4ZrD6yK2PPx6QE6n0eGZKVfU/view?usp=sharing) | **43.0 (70.8)** | [DCMIP_NCPLR_MS](https://drive.google.com/file/d/1Pd4zvf_uOBPlWQ872vHwdg7plk8pGQS3/view?usp=sharing) |
 
-<a name='6'></a>
-## 6. References
+<a name='7'></a>
+## 7. References
 [1] Our code is conducted based on [ClusterContrast](https://github.com/alibaba/cluster-contrast-reid).
 
 [2] [Cluster Contrast for Unsupervised Person Re-Identification](https://arxiv.org/pdf/2103.11568v3.pdf)
